@@ -64,6 +64,11 @@ class Googl
 		curl_setopt($this->ch, CURLOPT_POST, count($data));
 		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, Array('Content-Type: application/json'));
+                
+                # Allow (possibly) insecure connections to Google API in order
+                # to overcome error message 
+                # SSL certificate problem: unable to get local issuer certificate
+                curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		if ( $extended || $this->extended) {
 			return json_decode(curl_exec($this->ch));
